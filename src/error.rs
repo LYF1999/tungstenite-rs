@@ -3,7 +3,7 @@
 use std::{io, result, str, string};
 
 use crate::protocol::{frame::coding::Data, Message};
-use http::Response;
+use http::{header::HeaderName, Response};
 use thiserror::Error;
 
 /// Result type of all Tungstenite library calls.
@@ -167,6 +167,9 @@ pub enum ProtocolError {
     /// Custom responses must be unsuccessful.
     #[error("Custom response must not be successful")]
     CustomResponseSuccessful,
+    /// Duplicated header
+    #[error("Duplicated header {0}")]
+    DuplicatedHeader(HeaderName),
     /// No more data while still performing handshake.
     #[error("Handshake not finished")]
     HandshakeIncomplete,
